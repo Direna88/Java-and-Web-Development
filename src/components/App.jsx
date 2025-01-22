@@ -4,6 +4,8 @@ import Header from "./Header";
 import SignIn from "./pages/SignIn";
 import Footer from "./Footer";
 import Note from "./Note";
+import notes from "../notes";
+
 
 function App() {
   return (
@@ -12,7 +14,15 @@ function App() {
       <Routes>
         <Route path="/signin" element={<SignIn />}/>
       </Routes>
-      <Note />
+      <div className="notes-container">
+        {notes.map(noteItem => (
+          <Note
+          key={noteItem.key}
+          title={noteItem.title}
+          content={noteItem.content}
+          />
+        ))}
+      </div>
       <Footer />
     </div>
   )
