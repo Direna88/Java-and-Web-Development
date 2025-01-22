@@ -11,6 +11,7 @@ nav {
   padding: 16px 32px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   position: sticky;
+  z-index: 1000;
   top: 0;
 }
 

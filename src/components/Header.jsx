@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import "./Header.css";
 import FlashlightOnIcon from '@mui/icons-material/FlashlightOn';
+import Button from '@mui/material/Button';
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -9,8 +10,8 @@ function Header() {
   return (
     <nav>
       <Link to="/" className="title">
-      <FlashlightOnIcon />
-        MyKeeper
+        <FlashlightOnIcon />
+          MyKeeper
       </Link>
       <div 
         className="menu" 
@@ -22,10 +23,12 @@ function Header() {
       </div>
         <ul className={menuOpen ? "open" : ""}>
           <li className="nav_btn">
-            <NavLink to="/signin" className="button">
-              Sign in
-            </NavLink>
-            </li>
+            <Button size="large">
+              <NavLink to="/signin">
+                Sign in
+              </NavLink>
+            </Button>
+          </li>
         </ul>
     </nav>
   );
