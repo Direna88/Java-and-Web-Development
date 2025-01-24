@@ -84,6 +84,16 @@ footer p {
   height: 36px;
   cursor: pointer;
   outline: none;
+  background: none;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  transition: background 0.2s ease-in-out;
+}
+
+.note button:hover {
+  background: rgba(0, 0, 255, 0.1);
 }
 
 /* 3 notes per row for large tablets */

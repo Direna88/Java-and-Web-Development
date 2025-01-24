@@ -11,25 +11,20 @@ function Header() {
     <nav>
       <Link to="/" className="title">
         <FlashlightOnIcon />
-          MyKeeper
+        MyKeeper
       </Link>
-      <div 
-        className="menu" 
-        onClick={() => 
-          setMenuOpen(!menuOpen)}>
+      <div className="menu" onClick={() => setMenuOpen(!menuOpen)}>
         <span></span>
         <span></span>
         <span></span>
       </div>
-        <ul className={menuOpen ? "open" : ""}>
-          <li className="nav_btn">
-            <Button size="large">
-              <NavLink to="/signin">
-                Sign in
-              </NavLink>
-            </Button>
-          </li>
-        </ul>
+      <ul className={menuOpen ? "open" : ""}>
+        <li className="nav_btn">
+          <Button size="large">
+            <NavLink to="/signin">Sign in</NavLink>
+          </Button>
+        </li>
+      </ul>
     </nav>
   );
 }

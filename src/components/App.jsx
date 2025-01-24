@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+// eslint-disable-next-line no-unused-vars
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./Header";
-import SignIn from "./pages/SignIn";
+import LoginSignup from "./pages/LoginSignup";
 import Footer from "./Footer";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
@@ -25,26 +26,29 @@ function App() {
   }
 
   return (
-    <div>
-      <Header />
-      <Routes>
-        <Route path="/signin" element={<SignIn />}/>
-      </Routes>
-        <CreateArea onAdd={addNote} />
-          {notes.map((noteItem, index) => {
-            return (
-              <Note
-                key={index}
-                id={index}
-                title={noteItem.title}
-                content={noteItem.content}
-                onDelete={deleteNote}
-              />
-            );
-          })}
-      <Footer />
-    </div>
-  )
+      <div>
+        <Header />
+        <Routes>
+          <Route path="/" element={
+            <div>
+              <CreateArea onAdd={addNote} />
+              {notes.map((noteItem, index) => (
+                <Note
+                  key={index}
+                  id={index}
+                  title={noteItem.title}
+                  content={noteItem.content}
+                  onDelete={deleteNote}
+                />
+              ))}
+            </div>
+          }/>
+
+          <Route path="/signin" element={<LoginSignup />} />
+        </Routes>
+        <Footer />
+      </div>
+  );
 }
 
 export default App;

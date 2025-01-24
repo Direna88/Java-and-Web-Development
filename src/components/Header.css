@@ -39,10 +39,10 @@ nav ul li a {
   margin: 0 0.5rem;
   border-radius: 0.5rem;
 }
-
+/* 
 nav ul li a:not(.active):hover {
   background-color: #1a2754;
-}
+} */
 
 .nav__btn {
   display: flex;
