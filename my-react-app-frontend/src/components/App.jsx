@@ -35,8 +35,8 @@ function App() {
         body: JSON.stringify(newNote), 
       });
 
-      const data = await response.json();
-      setNotes((prevNotes) => [...prevNotes, data]); //Update Frontend
+      const savedNote = await response.json();
+      setNotes([...notes, savedNote]);
     } catch (err) {
       console.log(err.message);
     }
@@ -46,25 +46,11 @@ function App() {
   const deleteNote = async (id) => {
     try {
       await fetch(`http://localhost:5000/notes/${id}`, { method: "DELETE" });
-      setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
+      setNotes(notes.filter((note) => note.id !== id));
     } catch (err) {
       console.error("Error deleting note:", err);
     }
   };
-
-  // function addNote(newNote) {
-  //   setNotes(prevNotes => {
-  //     return [...prevNotes, newNote];
-  //   });
-  // }
-
-  // function deleteNote(id) {
-  //   setNotes(prevNotes => {
-  //     return prevNotes.filter((noteItem, index) => {
-  //       return index !== id;
-  //     });
-  //   });
-  // }
 
   return (
       <div>
