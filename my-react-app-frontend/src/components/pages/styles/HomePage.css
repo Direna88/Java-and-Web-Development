@@ -1,0 +1,121 @@
+/* General Styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+  color: #00246B;
+  text-align: center;
+  height: 100%;
+  overflow-x: hidden; 
+}
+
+.homepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 20px;
+  min-height: 80vh;
+}
+
+
+/* Main Content */
+main {
+  max-width: 650px;
+  padding: 20px;
+}
+
+h2 {
+  font-size: 42px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.highlight {
+  color: #A2BFF2;
+  font-weight: bold;
+}
+
+p {
+  font-size: 25px;
+  margin: 12px 0;
+  line-height: 1.6;
+}
+
+/* Signup Button */
+.signup-btn {
+  background-color: #00246B;
+  color: white;
+  font-size: 22px;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 25px;
+  transition: background 0.3s ease;
+}
+
+.signup-btn:hover {
+  background-color: #001b4e;
+}
+
+/* Login Text */
+.login-text {
+  margin-top: 25px;
+  font-size: 20px;
+}
+
+.login-link {
+  color: #00246B;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+/* 📱 Mobile Responsiveness */
+@media screen and (max-width: 1050px) {
+  h2 {
+    font-size: 38px;
+  }
+  p {
+    font-size: 22px;
+  }
+  .signup-btn {
+    font-size: 20px;
+    padding: 14px 28px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  h2 {
+    font-size: 36px;
+  }
+  p {
+    font-size: 20px;
+  }
+  .signup-btn {
+    font-size: 19px;
+    padding: 12px 26px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .homepage {
+    height: auto;
+    padding: 50px 25px;
+  }
+  h2 {
+    font-size: 32px;
+  }
+  p {
+    font-size: 18px;
+  }
+  .signup-btn {
+    font-size: 18px;
+    padding: 12px 24px;
+  }
+}

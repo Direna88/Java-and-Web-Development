@@ -6,8 +6,9 @@ import Button from '@mui/material/Button';
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  
   return (
+
     <nav>
       <Link to="/" className="title">
         <FlashlightOnIcon />
@@ -21,7 +22,7 @@ function Header() {
       <ul className={menuOpen ? "open" : ""}>
         <li className="nav_btn">
           <Button size="large">
-            <NavLink to="/signin">Sign in</NavLink>
+            <NavLink to="/signup">Sign Up</NavLink>
           </Button>
         </li>
       </ul>

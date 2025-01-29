@@ -6,6 +6,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100vw;
   background-color: #00246B;
   margin: auto -16px;
   padding: 16px 32px;
@@ -39,10 +40,6 @@ nav ul li a {
   margin: 0 0.5rem;
   border-radius: 0.5rem;
 }
-/* 
-nav ul li a:not(.active):hover {
-  background-color: #1a2754;
-} */
 
 .nav__btn {
   display: flex;
@@ -85,6 +82,7 @@ nav .menu span {
   background-color: white;
   border-radius: 0.2rem;
 }
+
 
 /*Adding responsivness to the navigation bar*/
 @media screen and (max-width: 600px) {

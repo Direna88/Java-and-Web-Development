@@ -1,80 +1,29 @@
-import { useState, useEffect } from "react";
-// eslint-disable-next-line no-unused-vars
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+/* eslint-disable no-unused-vars */
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import HomePage from "./pages/HomePage";
 import Header from "./Header";
-import LoginSignup from "./pages/LoginSignup";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup"; 
 import Footer from "./Footer";
-import Note from "./Note";
-import CreateArea from "./CreateArea";
+import Notes from "./Notes";
 
 
 function App() {
-  const [notes, setNotes] = useState([]);
-
-  //Fetch notes from the database when the page loads
-  useEffect(() => {
-    const fetchNotes = async () => {
-      try {
-        const response = await fetch ("http://localhost:5000/notes");
-        const data = await response.json();
-        setNotes(data);
-      } catch (err) {
-        console.log(err.message);
-      }
-    };
-
-    fetchNotes();
-  }, []);
-
-  //Add a note to the database
-  const addNote = async (newNote) => {
-    try {
-      const response = await fetch("http://localhost:5000/notes", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newNote), 
-      });
-
-      const savedNote = await response.json();
-      setNotes([...notes, savedNote]);
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-
-  //Delete a note from both Frontend & Database
-  const deleteNote = async (id) => {
-    try {
-      await fetch(`http://localhost:5000/notes/${id}`, { method: "DELETE" });
-      setNotes(notes.filter((note) => note.id !== id));
-    } catch (err) {
-      console.error("Error deleting note:", err);
-    }
-  };
-
+  const location = useLocation();
+  const navigate = useNavigate();
+  const hideHeader = location.pathname === "/signup" || location.pathname === "/login"; // Hide on signup & login
+  const showLogout = location.pathname === "/notes";
   return (
-      <div>
-        <Header />
-        <Routes>
-          <Route path="/" element={
-            <div>
-              <CreateArea onAdd={addNote} />
-              {notes.map((note) => (
-                <Note
-                  key={note.id}
-                  id={note.id}
-                  title={note.title}
-                  content={note.content}
-                  onDelete={deleteNote}
-                />
-              ))}
-            </div>
-          }/>
-
-          <Route path="/signin" element={<LoginSignup />} />
-        </Routes>
-        <Footer />
-      </div>
+    <>
+      {!hideHeader && <Header showLogout={showLogout} />}
+      <Routes>
+        <Route path="/" element={<HomePage />} /> 
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/notes" element={<Notes />} />
+      </Routes>
+      <Footer />
+    </>
   );
 }
 
