@@ -1,13 +1,18 @@
 const express = require("express");
-const app = express();
 const cors = require("cors");
 const pool = require("./db");
+const router = require("./routes/authRoutes.js")
+const app = express();
+const PORT = 5000
+
 
 //middleware
 app.use(cors());
 app.use(express.json());
+app.use('/auth', router);
 
-//ROUTES//
+
+//ROUTES - NOTES//
 
 //create a note
 app.post("/notes", async (req, res) => {
@@ -55,7 +60,6 @@ app.delete("/notes/:id", async(req, res) => {
     console.log(err.message);
   }
 })
-
 
 app.listen(5000, () => {
   console.log("Server has started on port 5000")
