@@ -1,17 +1,33 @@
 import "./styles/SignupLogin.css";
 import { useState } from "react";
-
+import {useNavigate} from "react-router-dom"
+import axios from "axios";
 
 function Signup() {
+
   const [values, setValues] = useState({
-    username: '',
     email: '',
     password: ''
   });
 
+  const navigate = useNavigate();
+
   const handleChanges = (e) => {
-    setValues({...values, [e.target.name]:[e.target.value]})
+    setValues({...values, [e.target.name]:e.target.value})
   }
+
+  const handleSubmit = async(e) => {
+    e.preventDefault()
+
+    try {
+      const response = await axios.post('http://localhost:5000/auth/signup', values);
+      if(response.status === 201) {
+        navigate('/login');
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  }; 
 
   return (
    <div className="container">
@@ -20,12 +36,7 @@ function Signup() {
         </p>
 
     <div className="box">
-      <form>
-        <div className="input-group">
-          <label htmlFor="username">Username</label>
-          <input type="text" placeholder="Enter Username" name="username" onChange={handleChanges}/>
-        </div>
-
+      <form onSubmit={handleSubmit}>
         <div className="input-group">
           <label htmlFor="email">Email</label>
           <input type="email" placeholder="Enter Email" name="email" onChange={handleChanges}/>

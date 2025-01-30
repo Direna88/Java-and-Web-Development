@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import CreateArea from "./CreateArea";
 import Note from "./Note";
-import Header from "./Header";
+// import Header from "./Header";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
-
 
 
 function Notes() {
@@ -67,7 +66,6 @@ function Notes() {
 
   return (
     <div>
-      <Header />
       <CreateArea onAdd={addNote} />
       {notes.map((note) => (
         <Note key={note.id} id={note.id} title={note.title} content={note.content} onDelete={deleteNote} />
