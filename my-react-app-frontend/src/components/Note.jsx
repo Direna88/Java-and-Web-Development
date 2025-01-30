@@ -4,8 +4,21 @@ import DeleteIcon from '@mui/icons-material/Delete';
 function Note({ id, title, content, onDelete }) {
   //Handle delete note API request
   const handleDelete = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No token found, user not logged in");
+      return;
+    }
+
     try {
-      await fetch(`http://localhost:5000/notes/${id}`, { method: "DELETE" });
+      await fetch(`http://localhost:5000/notes/${id}`, 
+      { method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+       });
+
       onDelete(id); //Remove from frontend after deleting from database
     } catch (err) {
       console.error("Error deleting note:", err);

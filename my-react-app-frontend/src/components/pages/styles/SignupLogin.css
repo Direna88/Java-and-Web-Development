@@ -1,14 +1,16 @@
 html, body {
   font-family: "Montserrat", sans-serif;
-  height: 100vh; 
+  height: auto;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   background: #eeeeee63;
   text-align: center;
+  overflow-y: auto;
 }
 
 .container {
@@ -18,7 +20,7 @@ html, body {
   align-items: center;
   width: 100%;
   flex-grow: 1;
-  padding-top: 20px; /* Reduced from 40px to move form down */
+  padding-top: 20px;
 }
 
 .subtitle {
@@ -74,48 +76,14 @@ html, body {
   transform: scale(1.03);
 }
 
-/* Ensure "or" separator aligns properly */
-.divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 12px 0;
-  position: relative;
-}
-
-.divider span {
-  background: white;
-  padding: 0 10px;
-  color: #ccc;
-}
-
-.divider::before,
-.divider::after {
-  content: "";
-  flex-grow: 1;
-  height: 1px;
-  background: #ccc;
-  margin: 0 10px;
-}
-
-/* Social Login Buttons */
-.social-btn {
-  width: 100%;
-  padding: 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-.google {
-  background: white;
+.already-have-account {
+  margin-top: 15px; 
+  text-align: center; 
 }
 
 /* Footer Fix */
-footer {
-  position: fixed;
+/* footer {
+  position: relative;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -126,7 +94,7 @@ footer {
   justify-content: center;
   color: white;
   font-size: 16px;
-}
+} */
 
 /* Mobile Responsiveness */
 @media screen and (max-width: 600px) {

@@ -11,6 +11,7 @@ import Notes from "./Notes";
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
+
   const hideHeader = location.pathname === "/signup" || location.pathname === "/login"; // Hide on signup & login
   const showLogout = location.pathname === "/notes";
   return (

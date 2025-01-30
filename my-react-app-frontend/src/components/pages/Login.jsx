@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {useNavigate} from "react-router-dom"
+import {useNavigate, Link} from "react-router-dom"
 import axios from "axios";
 
 function Login() {
@@ -50,11 +50,10 @@ function Login() {
         <button type="submit" className="submit-btn">Continue</button>
       </form>
 
-      <div className="divider">
-        <span>or</span>
+      <div className="already-have-account">
+        <span> Do not have an account?</span>
+        <Link to="/signup">Signup</Link>
       </div>
-
-      <button className="social-btn google">Continue with Google</button>
       </div>
     </div>
   )

@@ -26,9 +26,17 @@ function CreateArea(props) {
   // Sends the note to the backend (Database)
   const submitNoteToDB = async () => {
     try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        window.location.href = "/login";
+        return;
+      }
       const response = await fetch ("http://localhost:5000/notes", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+          },
         body: JSON.stringify(note),
       });
 

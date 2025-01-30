@@ -1,6 +1,6 @@
 import "./styles/SignupLogin.css";
 import { useState } from "react";
-import {useNavigate} from "react-router-dom"
+import {useNavigate, Link} from "react-router-dom"
 import axios from "axios";
 
 function Signup() {
@@ -31,7 +31,9 @@ function Signup() {
 
   return (
    <div className="container">
-    <h2>Welcome to MyKeeper!</h2>
+    <h2>Welcome to 
+      <Link to="/" style={{ color: "#9BB1F3", textDecoration: "none", fontWeight: "bold" }}> MyKeeper</Link>
+    </h2>
         <p className="subtitle">Sign up and start taking notes.
         </p>
 
@@ -50,13 +52,12 @@ function Signup() {
         <button type="submit" className="submit-btn">Submit</button>
       </form>
 
-      <div className="divider">
-        <span>or</span>
-      </div>
-
-      <button className="social-btn google">Continue with Google</button>
+      <div className="already-have-account">
+        <span>Already have account?</span>
+        <Link to="/login">Login</Link>
       </div>
     </div>
+  </div>
   )
 };
 

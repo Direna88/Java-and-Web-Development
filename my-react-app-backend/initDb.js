@@ -63,7 +63,6 @@ async function createTables() {
         user_id INT NOT NULL,
         title VARCHAR(255),
         content VARCHAR(500),
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
       );
     `);
