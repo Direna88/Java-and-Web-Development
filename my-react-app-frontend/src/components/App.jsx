@@ -14,15 +14,16 @@ function App() {
 
   const hideHeader = location.pathname === "/signup" || location.pathname === "/login"; // Hide on signup & login
   const showLogout = location.pathname === "/notes";
+  
   return (
     <>
       {!hideHeader && <Header showLogout={showLogout} />}
-      <Routes>
-        <Route path="/" element={<HomePage />} /> 
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/notes" element={<Notes />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<HomePage />} /> 
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/notes" element={<Notes />} />
+        </Routes>
       <Footer />
     </>
   );

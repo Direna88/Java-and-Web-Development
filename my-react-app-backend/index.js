@@ -1,32 +1,41 @@
 const express = require("express");
 const cors = require("cors");
 const pool = require("./db");
-const router = require("./routes/authRoutes.js")
+const router = require("./routes/authRoutes.js");
 const jwt = require("jsonwebtoken");
 const app = express();
-const port = 5000
-
+const port = 5001;
 
 //middleware
 app.use(cors());
 app.use(express.json());
-app.use('/auth', router);
+app.use("/auth", router);
 
+//ROUTES ---- NOTES//
 
-//ROUTES - NOTES//
+// Test route to check if the server is running
+app.get("/test", async (req, res) => {
+  return res.json({ msg: "Yes, the test is working" });
+});
 
-//create a note
+// create a new note
 app.post("/notes", async (req, res) => {
   try {
-    const Authorization = req.get("Authorization")
+    const Authorization = req.get("Authorization");
     let token;
     if (Authorization) {
-        token = Authorization.split("Bearer ").at(-1)
+      token = Authorization.split("Bearer ").at(-1);
     }
+
+    // Verify the token and extract the user ID
     const verifiedUser = jwt.verify(token, process.env.JWT_KEY);
-    
-    const {title, content } = req.body;
-    const newNote = await pool.query("INSERT INTO notes (user_id, title, content) VALUES ($1, $2, $3) RETURNING *", [verifiedUser.id, title, content]);
+    const { title, content } = req.body;
+
+    // Insert the new note into the database
+    const newNote = await pool.query(
+      "INSERT INTO notes (user_id, title, content) VALUES ($1, $2, $3) RETURNING *",
+      [verifiedUser.id, title, content],
+    );
 
     res.json(newNote.rows[0]);
   } catch (err) {
@@ -34,37 +43,52 @@ app.post("/notes", async (req, res) => {
   }
 });
 
-//get all notes
+// Get all notes for the authenticated user
 app.get("/notes", async (req, res) => {
   try {
-    const Authorization = req.get("Authorization")
+    const Authorization = req.get("Authorization");
     let token;
     if (Authorization) {
-        token = Authorization.split("Bearer ").at(-1)
+      token = Authorization.split("Bearer ").at(-1);
     }
+
+    // Verify user authentication
     const verifiedUser = jwt.verify(token, process.env.JWT_KEY);
 
-    const allNotes = await pool.query("SELECT * FROM notes WHERE user_id = $1", [verifiedUser.id]);
-    // WHERE user?id = '${verifiedUser.id}'
+    // Fetch all notes belonging to the user
+    const allNotes = await pool.query(
+      "SELECT * FROM notes WHERE user_id = $1",
+      [verifiedUser.id],
+    );
+
     res.json(allNotes.rows);
   } catch (err) {
     console.log(err.message);
   }
-})
+});
 
-//get a note
+// Get a specific note by ID
 app.get("/notes/:id", async (req, res) => {
   try {
-    const Authorization = req.get("Authorization")
+    // Extract the Authorization header
+    const Authorization = req.get("Authorization");
     let token;
+
+    // If an Authorization header exists, extract the Bearer token
     if (Authorization) {
-        token = Authorization.split("Bearer ").at(-1)
+      token = Authorization.split("Bearer ").at(-1);
     }
+
+    // Verify the token and extract the user ID
     const verifiedUser = jwt.verify(token, process.env.JWT_KEY);
     const userId = verifiedUser.id;
-
     const { id } = req.params;
-    const note = await pool.query("SELECT * FROM notes WHERE id = $1 AND user_id = $2", [id, userId]);
+
+    // Fetch the requested note only if it belongs to the authenticated user
+    const note = await pool.query(
+      "SELECT * FROM notes WHERE id = $1 AND user_id = $2",
+      [id, userId],
+    );
 
     res.json(note.rows[0]);
   } catch (err) {
@@ -72,33 +96,7 @@ app.get("/notes/:id", async (req, res) => {
   }
 });
 
-//delete a note
-// app.delete("/notes/:id", async(req, res) => {
-//   try {
-//     const Authorization = req.get("Authorization");
-//     console.log("Received Authorization header:", Authorization);
-
-//     let token;
-//     if (Authorization) {
-//         token = Authorization.split("Bearer ").at(-1)
-//     };
-
-//     console.log("Extracted Token:", token);
-
-//     const verifiedUser = jwt.verify(token, process.env.JWT_KEY);
-
-//     const userId = verifiedUser.id;
-
-//     const {id} = req.params;
-//     await pool.query("DELETE FROM notes WHERE id = $1 AND user_id = $2", [id, userId]);
-
-//     res.json("Note was deleted!");
-//   } catch (err) {
-//     console.log(err.message);
-//   }
-// });
-
-
+// Delete a note
 app.delete("/notes/:id", async (req, res) => {
   try {
     const Authorization = req.get("Authorization");
@@ -112,9 +110,12 @@ app.delete("/notes/:id", async (req, res) => {
     console.log("Extracted Token:", token);
 
     if (!token) {
-      return res.status(401).json({ error: "Unauthorized: Token must be provided" });
+      return res
+        .status(401)
+        .json({ error: "Unauthorized: Token must be provided" });
     }
 
+    // Verify the token and extract user ID
     let verifiedUser;
     try {
       verifiedUser = jwt.verify(token, process.env.JWT_KEY);
@@ -128,7 +129,7 @@ app.delete("/notes/:id", async (req, res) => {
     // Ensure the note belongs to the user before deleting
     const deleteResult = await pool.query(
       "DELETE FROM notes WHERE id = $1 AND user_id = $2 RETURNING *",
-      [id, userId]
+      [id, userId],
     );
     console.log("Delete Query Result:", deleteResult.rows);
 
@@ -142,7 +143,6 @@ app.delete("/notes/:id", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
 
 app.listen(port, () => {
   console.log(`Server has started on port ${port}`);

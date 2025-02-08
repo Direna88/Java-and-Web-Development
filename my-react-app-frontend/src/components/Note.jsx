@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function Note({ id, title, content, onDelete }) {
-  //Handle delete note API request
+  //Handles deleting a note via API request
   const handleDelete = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -11,15 +11,15 @@ function Note({ id, title, content, onDelete }) {
     }
 
     try {
-      await fetch(`http://localhost:5000/notes/${id}`, 
-      { method: "DELETE",
+      await fetch(`/api/notes/${id}`, {
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
-       });
+      });
 
-      onDelete(id); //Remove from frontend after deleting from database
+      onDelete(id); // Removes note from frontend after successful deletion
     } catch (err) {
       console.error("Error deleting note:", err);
     }

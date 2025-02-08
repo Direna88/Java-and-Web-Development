@@ -1,24 +1,25 @@
 /* eslint-disable react/prop-types */
-import { useState} from "react";
-import AddIcon from '@mui/icons-material/Add';
-import Fab from '@mui/material/Fab';
-import Zoom from '@mui/material/Zoom';
+import { useState } from "react";
+import AddIcon from "@mui/icons-material/Add";
+import Fab from "@mui/material/Fab";
+import Zoom from "@mui/material/Zoom";
 
 function CreateArea(props) {
+  props;
   const [isExpanded, setExpanded] = useState(false);
 
   const [note, setNote] = useState({
     title: "",
-    content: ""
+    content: "",
   });
 
   function handleChange(event) {
     const { name, value } = event.target;
 
-    setNote(prevNote => {
+    setNote((prevNote) => {
       return {
         ...prevNote,
-        [name]: value
+        [name]: value,
       };
     });
   }
@@ -31,22 +32,24 @@ function CreateArea(props) {
         window.location.href = "/login";
         return;
       }
-      const response = await fetch ("http://localhost:5000/notes", {
+      const response = await fetch("/api/notes", {
         method: "POST",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-          },
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(note),
       });
 
       const data = await response.json();
+      console.log(data);
       console.log("Server Response:", data);
 
-      // Clears input fields only if API call is successful
-      setNote({ title: "", content: ""});
+      // Clear input fields and refresh notes after saving
+      setNote({ title: "", content: "" });
       setExpanded(false);
-      props.onAdd(data); //Updates frontend with newly added note
+      props.onAdd(note);
+      window.location.reload();
     } catch (err) {
       console.log(err.message);
     }
@@ -58,8 +61,7 @@ function CreateArea(props) {
     if (note.title || note.content) {
       submitNoteToDB(); //Saves to DB
     }
-  };
-
+  }
 
   function handleKeyPress(event) {
     if (event.key === "Enter" && !event.shiftKey) {
@@ -68,6 +70,7 @@ function CreateArea(props) {
     }
   }
 
+  // Expands the textarea when clicked
   function expand() {
     setExpanded(true);
   }
@@ -94,11 +97,7 @@ function CreateArea(props) {
           rows={isExpanded ? 3 : 1}
         />
         <Zoom in={isExpanded}>
-          <Fab
-          type="submit" 
-          onClick={submitNote}
-          className="fab-button"
-          >
+          <Fab type="submit" onClick={submitNote} className="fab-button">
             <AddIcon />
           </Fab>
         </Zoom>

@@ -1,15 +1,18 @@
-const { Client } = require('pg');
-const dotenv = require('dotenv');
+const { Client } = require("pg");
+const dotenv = require("dotenv");
 
 dotenv.config();
 
 // Database credentials
-const DB_NAME = 'notes_app';
+
+// const DB_NAME = 'notes_app';
+const DB_NAME = process.env.PG_DATABASE;
 const DB_USER = process.env.PG_USER;
 const DB_PASSWORD = process.env.PG_PASSWORD;
 const DB_HOST = process.env.PG_HOST;
 const DB_PORT = process.env.PG_PORT;
 
+// Function to initialize the database (create if it doesn’t exist)
 async function initializeDatabase() {
   const rootClient = new Client({
     user: DB_USER,
@@ -21,8 +24,10 @@ async function initializeDatabase() {
   try {
     await rootClient.connect();
 
-    // Check if the database exists
-    const result = await rootClient.query(`SELECT 1 FROM pg_database WHERE datname = '${DB_NAME}';`);
+    // Check if the database already exists
+    const result = await rootClient.query(
+      `SELECT 1 FROM pg_database WHERE datname = '${DB_NAME}';`,
+    );
 
     if (result.rowCount === 0) {
       console.log(`Database "${DB_NAME}" does not exist. Creating...`);
@@ -34,11 +39,12 @@ async function initializeDatabase() {
 
     await rootClient.end();
   } catch (err) {
-    console.error('Error creating database:', err);
+    console.error("Error creating database:", err);
     process.exit(1);
   }
-}
+};
 
+// Function to create necessary tables in the database
 async function createTables() {
   const dbClient = new Client({
     user: DB_USER,
@@ -51,6 +57,7 @@ async function createTables() {
   try {
     await dbClient.connect();
 
+    // Create users and notes tables if they don’t exist
     await dbClient.query(`
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
@@ -67,17 +74,17 @@ async function createTables() {
       );
     `);
 
-    console.log('Tables created successfully.');
+    console.log("Tables created successfully.");
     await dbClient.end();
   } catch (err) {
-    console.error('Error creating tables:', err);
+    console.error("Error creating tables:", err);
     process.exit(1);
   }
-}
+};
 
 // Run the script
 (async () => {
   await initializeDatabase();
   await createTables();
-  console.log('Database setup complete.');
+  console.log("Database setup complete.");
 })();
