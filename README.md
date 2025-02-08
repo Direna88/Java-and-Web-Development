@@ -18,13 +18,15 @@ Before setting up MyKeeper, ensure you have the following installed:
 
 ## Setup Steps
 * Clone the Repository
-```bash gh repo clone Direna88/Java-and-Web-Development```
+```bash
+gh repo clone Direna88/Java-and-Web-Development
+```
 * Navigate into the project directory
   ```bash
-  cd my-react-app```
+  cd my-react-app
 * Install all dependencies
   ```bash
-  npm install```
+  npm install
 * Set up Environment Variables
   Create a .env file in the root directory and add:
   
@@ -34,16 +36,17 @@ Before setting up MyKeeper, ensure you have the following installed:
   PG_DATABASE=your_database_name
   PG_HOST=your_database_host
   PG_PORT=5432
-  JWT_KEY=your_secret_key
-  Ensure PostgresSQL is running and has a database ready.
+  JWT_KEY=your_secret_key```
 * In one termianl cd into and start the Backend Server
   ```bash
-  nodemon index.js```
+  nodemon index.js
 * In another terminal cd into and start the Frontend
- ```bash npm run dev```
+ ```bash
+npm run dev
 * Open MyKeeper in the Browser
   Navigate to:
-  ```bash http://127.0.0.1:5173 or http://localhost:5173```
+  ```bash
+http://127.0.0.1:5173 or http://localhost:5173
 
 ## Authentication & Usage
 * Create an account to store your notes securely.
