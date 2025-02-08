@@ -17,10 +17,10 @@ Before setting up MyKeeper, ensure you have the following installed:
 * All required dependencies will be installed via npm install.
 
 ## Setup Steps
-*Clone the Repository*
-```bash gh repo clone Direna88/Java-and-Web-Development`
+** Clone the Repository **
+```bash gh repo clone Direna88/Java-and-Web-Development```
 * Navigate into the project directory
-  cd my-react-app
+  ```cd my-react-app```
 * Install all dependencies
   npm install
 * Set up Environment Variables
