@@ -18,7 +18,7 @@ Before setting up MyKeeper, ensure you have the following installed:
 
 ## Setup Steps
 * Clone the Repository
-  [gh repo clone Direna88/Java-and-Web-Development] (gh repo clone Direna88/Java-and-Web-Development)
+  [gh repo clone Direna88/Java-and-Web-Development](gh repo clone Direna88/Java-and-Web-Development)
 * Navigate into the project directory
   [cd my-react-app]
 * Install all dependencies
