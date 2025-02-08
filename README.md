@@ -19,7 +19,7 @@ Before setting up MyKeeper, ensure you have the following installed:
 ## Setup Steps
 * Clone the Repository
 ```bash
-  gh repo clone Direna88/Java-and-Web-Development
+gh repo clone Direna88/Java-and-Web-Development
 ```
 * Navigate into the project directory
   ```bash
@@ -36,7 +36,7 @@ Before setting up MyKeeper, ensure you have the following installed:
   PG_DATABASE=your_database_name
   PG_HOST=your_database_host
   PG_PORT=5432
-  JWT_KEY=your_secret_key```
+  JWT_KEY=your_secret_key
 * In one termianl cd into and start the Backend Server
   ```bash
   nodemon index.js
