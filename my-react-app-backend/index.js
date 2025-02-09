@@ -13,12 +13,11 @@ app.use("/auth", router);
 
 //ROUTES ---- NOTES//
 
-// Test route to check if the server is running
 app.get("/test", async (req, res) => {
   return res.json({ msg: "Yes, the test is working" });
 });
 
-// create a new note
+// Create a new note
 app.post("/notes", async (req, res) => {
   try {
     const Authorization = req.get("Authorization");
@@ -52,7 +51,6 @@ app.get("/notes", async (req, res) => {
       token = Authorization.split("Bearer ").at(-1);
     }
 
-    // Verify user authentication
     const verifiedUser = jwt.verify(token, process.env.JWT_KEY);
 
     // Fetch all notes belonging to the user
@@ -70,11 +68,9 @@ app.get("/notes", async (req, res) => {
 // Get a specific note by ID
 app.get("/notes/:id", async (req, res) => {
   try {
-    // Extract the Authorization header
     const Authorization = req.get("Authorization");
     let token;
 
-    // If an Authorization header exists, extract the Bearer token
     if (Authorization) {
       token = Authorization.split("Bearer ").at(-1);
     }
@@ -115,7 +111,6 @@ app.delete("/notes/:id", async (req, res) => {
         .json({ error: "Unauthorized: Token must be provided" });
     }
 
-    // Verify the token and extract user ID
     let verifiedUser;
     try {
       verifiedUser = jwt.verify(token, process.env.JWT_KEY);

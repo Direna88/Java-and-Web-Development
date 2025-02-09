@@ -3,9 +3,6 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-// Database credentials
-
-// const DB_NAME = 'notes_app';
 const DB_NAME = process.env.PG_DATABASE;
 const DB_USER = process.env.PG_USER;
 const DB_PASSWORD = process.env.PG_PASSWORD;
@@ -44,7 +41,6 @@ async function initializeDatabase() {
   }
 };
 
-// Function to create necessary tables in the database
 async function createTables() {
   const dbClient = new Client({
     user: DB_USER,
@@ -82,7 +78,6 @@ async function createTables() {
   }
 };
 
-// Run the script
 (async () => {
   await initializeDatabase();
   await createTables();

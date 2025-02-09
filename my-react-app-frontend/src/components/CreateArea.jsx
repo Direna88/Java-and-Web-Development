@@ -65,12 +65,11 @@ function CreateArea(props) {
 
   function handleKeyPress(event) {
     if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault(); // Prevents new line & page refresh
+      event.preventDefault();
       submitNote(event);
     }
   }
 
-  // Expands the textarea when clicked
   function expand() {
     setExpanded(true);
   }

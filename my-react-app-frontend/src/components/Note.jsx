@@ -19,7 +19,7 @@ function Note({ id, title, content, onDelete }) {
         },
       });
 
-      onDelete(id); // Removes note from frontend after successful deletion
+      onDelete(id);
     } catch (err) {
       console.error("Error deleting note:", err);
     }

@@ -59,7 +59,6 @@ function Notes() {
     fetchNotes();
   }, [navigate]);
 
-  // Adds a new note to the frontend state
   const addNote = async (newNote) => {
     setNotes([...notes, newNote]);
   };

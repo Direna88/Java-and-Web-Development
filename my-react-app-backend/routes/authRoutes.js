@@ -68,7 +68,6 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "wrong password" });
     }
 
-    // Generate a JWT token for authentication
     const token = jwt.sign({ id: rows[0].id }, process.env.JWT_KEY, {
       expiresIn: "3h",
     });
@@ -89,11 +88,10 @@ const verifyToken = async (req, res, next) => {
     if (!token) {
       return res.status(403).json({ message: "No token provided" });
     }
-    // Verify and decode the token
     const decoded = jwt.verify(token, process.env.JWT_KEY);
     req.userId = decoded.id;
 
-    next(); // Proceed to the next middleware or route handler
+    next();
   } catch (err) {
     return res.status(500).json({ message: "server error" });
   };
@@ -102,7 +100,6 @@ const verifyToken = async (req, res, next) => {
 // PROTECTED ROUTE TO FETCH USER NOTES //
 router.get("/notes", verifyToken, async (req, res) => {
   try {
-    // Fetch user from database using the verified user ID
     const result = await pool.query("SELECT * FROM users WHERE id = $1", [
       req.userId,
     ]);
