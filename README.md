@@ -37,14 +37,13 @@ gh repo clone Direna88/Java-and-Web-Development
   PG_HOST=your_database_host
   PG_PORT=5432
   JWT_KEY=your_secret_key
-* In one termianl cd into and start the Backend Server
+* In one termianl cd into and start the backend server
   ```bash
   nodemon index.js
-* In another terminal cd into and start the Frontend
+* In another terminal cd into and start the frontend
    ```bash
   npm run dev
-* Open MyKeeper in the Browser
-  Navigate to:
+* Open MyKeeper in the Browser and navigate to:
   ```bash
   http://127.0.0.1:5173 or http://localhost:5173
 
